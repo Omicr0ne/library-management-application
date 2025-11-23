@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use App\Repository\OuvrageRepository;
+use DateTimeImmutable;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 
@@ -15,15 +16,15 @@ class Ouvrage
     private ?int $id = null;
 
     #[ORM\Column(length: 60)]
-    #[assert\NotBlank()]            // Verification que le champ est non vide
+    #[Assert\NotBlank()]            // Verification que le champ est non vide
     private ?string $titre = null;
 
     #[ORM\Column(length: 60)]
-    #[assert\NotBlank()]
+    #[Assert\NotBlank]
     private ?string $auteurs = null;
 
     #[ORM\Column(length: 60)]
-    #[assert\NotBlank()]
+    #[Assert\NotBlank]
     private ?string $éditeur = null;    // Ne pas mettre d'accents la prochaine fois
 
     #[ORM\Column(length: 20)]
@@ -37,19 +38,25 @@ class Ouvrage
     private ?string $tags = null;
 
     #[ORM\Column(length: 255)]
-    #[assert\NotBlank()]
+    #[Assert\NotBlank]
     private ?string $langues = null;
 
     #[ORM\Column(length: 10)]
-    #[assert\NotBlank()]
+    #[Assert\NotBlank]
     private ?string $année = null;
 
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $résumé = null;
 
     #[ORM\Column]
-    #[assert\NotNull()]
+    #[Assert\NotNull]
     private ?\DateTimeImmutable $createdAt = null;
+
+    // Constructeur
+    public function __construct()
+    {
+        $this->createdAt = new DateTimeImmutable();
+    }
 
     public function getId(): ?int
     {
