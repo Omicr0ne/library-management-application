@@ -4,6 +4,8 @@ namespace App\Entity;
 
 use App\Repository\OuvrageRepository;
 use DateTimeImmutable;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 
@@ -52,10 +54,17 @@ class Ouvrage
     #[Assert\NotBlank]
     private ?\DateTimeImmutable $createdAt = null;
 
+    /**
+     * @var Collection<int, Exemplaire>
+     */
+    #[ORM\OneToMany(targetEntity: Exemplaire::class, mappedBy: 'ouvrage')]
+    private Collection $exemplaires;
+
     // Constructeur
     public function __construct()
     {
         $this->createdAt = new DateTimeImmutable();
+        $this->exemplaires = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -179,6 +188,36 @@ class Ouvrage
     public function setCreatedAt(\DateTimeImmutable $createdAt): static
     {
         $this->createdAt = $createdAt;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Exemplaire>
+     */
+    public function getExemplaires(): Collection
+    {
+        return $this->exemplaires;
+    }
+
+    public function addExemplaire(Exemplaire $exemplaire): static
+    {
+        if (!$this->exemplaires->contains($exemplaire)) {
+            $this->exemplaires->add($exemplaire);
+            $exemplaire->setOuvrage($this);
+        }
+
+        return $this;
+    }
+
+    public function removeExemplaire(Exemplaire $exemplaire): static
+    {
+        if ($this->exemplaires->removeElement($exemplaire)) {
+            // set the owning side to null (unless already changed)
+            if ($exemplaire->getOuvrage() === $this) {
+                $exemplaire->setOuvrage(null);
+            }
+        }
 
         return $this;
     }
