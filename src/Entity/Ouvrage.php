@@ -16,7 +16,7 @@ class Ouvrage
     private ?int $id = null;
 
     #[ORM\Column(length: 60)]
-    #[Assert\NotBlank()]            // Verification que le champ est non vide
+    #[Assert\NotBlank()]            // Verification que le champ est non Null et non vide
     private ?string $titre = null;
 
     #[ORM\Column(length: 60)]
@@ -49,7 +49,7 @@ class Ouvrage
     private ?string $résumé = null;
 
     #[ORM\Column]
-    #[Assert\NotNull]
+    #[Assert\NotBlank]
     private ?\DateTimeImmutable $createdAt = null;
 
     // Constructeur
