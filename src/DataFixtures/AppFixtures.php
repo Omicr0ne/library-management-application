@@ -78,10 +78,8 @@ class AppFixtures extends Fixture
             $product->setLangues($this->faker->randomElement(self::langue, $this->faker->numberBetween(2, 12)));
             $product->setéditeur($this->faker->randomElement(self::editeur));
             $product->setRésumé($this->faker->realText(200));
-
             $manager->persist($product);
         }
-
         $manager->flush();
     }
 }
