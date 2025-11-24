@@ -2,7 +2,9 @@
 
 namespace App\DataFixtures;
 
+use App\Entity\Exemplaire;
 use App\Entity\Ouvrage;
+use DateTimeImmutable;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
 use Faker\Factory;                          // On utilise faker pour générer des valeurs aléatoires réalistes
@@ -56,6 +58,12 @@ class AppFixtures extends Fixture
         'Arabe'
     ];
 
+    private const etat = [
+        'neuf',
+        'bon',
+        'mauvais'
+    ];
+
     private Generator $faker;
 
     // Constructeur
@@ -66,20 +74,31 @@ class AppFixtures extends Fixture
 
     public function load(ObjectManager $manager): void
     {
-        $ouvrage = new Ouvrage;
         for ($i = 0; $i < 20; $i++) {
-            $product = new Ouvrage();
-            $product->setTitre($this->faker->sentence(3));
-            $product->setAuteurs($this->faker->name);
-            $product->setCatégories($this->faker->randomElement(self::categories));
-            $product->setAnnée($this->faker->year);
-            $product->setTags('');
-            $product->setIsbnIssn($this->faker->numerify('#############'));
-            $product->setLangues($this->faker->randomElement(self::langue, $this->faker->numberBetween(2, 12)));
-            $product->setéditeur($this->faker->randomElement(self::editeur));
-            $product->setRésumé($this->faker->realText(200));
-            $manager->persist($product);
+            $cat = $this->faker->randomElement(self::categories);
+            $aut = $this->faker->name;
+            $ouvrage = new Ouvrage();
+            $ouvrage->setTitre($this->faker->sentence(3));
+            $ouvrage->setAuteurs($aut);
+            $ouvrage->setCatégories($cat);
+            $ouvrage->setAnnée($this->faker->year);
+            $ouvrage->setTags('');
+            $ouvrage->setIsbnIssn($this->faker->numerify('#############'));
+            $ouvrage->setLangues($this->faker->randomElement(self::langue));
+            $ouvrage->setéditeur($this->faker->randomElement(self::editeur));
+            $ouvrage->setRésumé($this->faker->realText(200));
+            $ouvrage->setCreatedAt(new DateTimeImmutable());
+            $manager->persist($ouvrage);
+            $manager->flush();
+
+            $exemplaire = new Exemplaire();
+            $exemplaire->setCote(substr($cat, 0, 3));
+            $exemplaire->setDisponibilite(mt_rand(0, 1));
+            $exemplaire->setEtat($this->faker->randomElement(self::etat));
+            $exemplaire->setOuvrage($ouvrage);
+            $exemplaire->setCreatedAt(new DateTimeImmutable());
+            $manager->persist($exemplaire);
+            $manager->flush();
         }
-        $manager->flush();
     }
 }
