@@ -74,7 +74,7 @@ class AppFixtures extends Fixture
 
     public function load(ObjectManager $manager): void
     {
-        for ($i = 0; $i < 20; $i++) {
+        for ($i = 0; $i < 40; $i++) {
             $cat = $this->faker->randomElement(self::categories);
             $aut = $this->faker->name;
             $ouvrage = new Ouvrage();
@@ -92,7 +92,7 @@ class AppFixtures extends Fixture
             $manager->flush();
 
             $exemplaire = new Exemplaire();
-            $exemplaire->setCote(substr($cat, 0, 3));
+            $exemplaire->setCote(mb_substr(mb_strtoupper($cat), 0, 3));
             $exemplaire->setDisponibilite(mt_rand(0, 1));
             $exemplaire->setEtat($this->faker->randomElement(self::etat));
             $exemplaire->setOuvrage($ouvrage);
