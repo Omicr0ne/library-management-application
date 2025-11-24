@@ -11,6 +11,13 @@ use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 
 class UserFixtures extends Fixture
 {
+    private const role = [
+        ['ROLE_ADMIN'],
+        ['ROLE_BIBLIO'],
+        ['ROLE_USER'],    // Plus de chance d'avoir un utilisateur
+        ['ROLE_USER'],
+        ['ROLE_USER']
+    ];
     private Generator $faker;
 
     // Constructeur
@@ -24,7 +31,7 @@ class UserFixtures extends Fixture
         for ($i = 0; $i < 20; $i++) {
             $user = new User();
             $user->setName($this->faker->name);
-            $user->setRoles(['ROLE_USER']);
+            $user->setRoles($this->faker->randomElement(self::role));
             $user->setEmail($this->faker->email());
             $user->setPassword($this->hasher->hashPassword($user, $this->faker->password(8)));  // Mot de passe hashé
             $manager->persist($user);
