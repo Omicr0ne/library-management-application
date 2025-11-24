@@ -1,0 +1,16 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Ouvrages{% endblock %}
+
+{% block body %}
+    <div classe = "container mt-4">
+        <h1>Liste des ouvrages</h1>
+        <hr>
+        {% for ouvrage in ouvrages %}
+            <p>
+                {{ouvrage.id}} | <b>{{ouvrage.titre}}</b> <br>
+                {{ouvrage.auteurs}} - {{ouvrage.année}}
+            </p>
+        {% endfor %}
+    </div>
+{% endblock %}
