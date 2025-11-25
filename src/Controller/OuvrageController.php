@@ -2,6 +2,8 @@
 
 namespace App\Controller;
 
+use App\Entity\Ouvrage;
+use App\Form\OuvrageType;
 use App\Repository\OuvrageRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
@@ -19,6 +21,13 @@ final class OuvrageController extends AbstractController
     #[Route('/newOuvrage', name: 'app_newOuvrage', methods: ['GET', 'POST'])]
     public function newOuvrage(): Response
     {
-        return $this->render('admin/newOuvrage.thml.twig');
+        $ouvrage = new Ouvrage();
+        $form = $this->createForm(OuvrageType::class, $ouvrage);
+
+
+
+        return $this->render('admin/newOuvrage.html.twig', [
+            'form' => $form->createView()
+        ]);
     }
 }

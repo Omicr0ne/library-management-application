@@ -34,6 +34,7 @@ class Ouvrage
     private ?string $IsbnIssn = null;
 
     #[ORM\Column(length: 255)]
+    #[Assert\NotBlank]
     private ?string $categories = null;
 
     #[ORM\Column(length: 255, nullable: true)]
