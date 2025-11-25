@@ -20,7 +20,7 @@ class OuvrageType extends AbstractType
                 'attr' => [
                     'class' => 'form-control',
                     'minlength' => '2',
-                    'maxlenght' => '60'
+                    'maxlength' => '60'
                 ],
                 'label' => 'Titre : ',
                 'label_attr' => [
@@ -35,7 +35,7 @@ class OuvrageType extends AbstractType
                 'attr' => [
                     'class' => 'form-control',
                     'minlength' => '2',
-                    'maxlenght' => '60'
+                    'maxlength' => '60'
                 ],
                 'label' => 'Auteur : ',
                 'label_attr' => [
@@ -50,7 +50,7 @@ class OuvrageType extends AbstractType
                 'attr' => [
                     'class' => 'form-control',
                     'minlength' => '2',
-                    'maxlenght' => '60'
+                    'maxlength' => '60'
                 ],
                 'label' => 'Editeur : ',
                 'label_attr' => [
@@ -122,7 +122,7 @@ class OuvrageType extends AbstractType
                 'attr' => [
                     'class' => 'form-control',
                     'minlength' => '2',
-                    'maxlenght' => '10'
+                    'maxlength' => '10'
                 ],
                 'label' => 'Année : ',
                 'label_attr' => [
