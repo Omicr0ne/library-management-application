@@ -80,13 +80,13 @@ class AppFixtures extends Fixture
             $ouvrage = new Ouvrage();
             $ouvrage->setTitre($this->faker->sentence(3));
             $ouvrage->setAuteurs($aut);
-            $ouvrage->setCatégories($cat);
-            $ouvrage->setAnnée($this->faker->year);
+            $ouvrage->setCategories($cat);
+            $ouvrage->setAnnee($this->faker->year);
             $ouvrage->setTags('');
             $ouvrage->setIsbnIssn($this->faker->numerify('#############'));
             $ouvrage->setLangues($this->faker->randomElement(self::langue));
-            $ouvrage->setéditeur($this->faker->randomElement(self::editeur));
-            $ouvrage->setRésumé($this->faker->realText(200));
+            $ouvrage->setediteur($this->faker->randomElement(self::editeur));
+            $ouvrage->setResume($this->faker->realText(200));
             $ouvrage->setCreatedAt(new DateTimeImmutable());
             $manager->persist($ouvrage);
             $manager->flush();

@@ -27,14 +27,14 @@ class Ouvrage
 
     #[ORM\Column(length: 60)]
     #[Assert\NotBlank]
-    private ?string $éditeur = null;    // Ne pas mettre d'accents la prochaine fois
+    private ?string $editeur = null;
 
     #[ORM\Column(length: 20)]
     #[Assert\Range(min: 8, max: 13,)]    // Verifie que la valeur entière se trouve entre 8 et 13
     private ?string $IsbnIssn = null;
 
     #[ORM\Column(length: 255)]
-    private ?string $catégories = null;
+    private ?string $categories = null;
 
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $tags = null;
@@ -45,10 +45,10 @@ class Ouvrage
 
     #[ORM\Column(length: 10)]
     #[Assert\NotBlank]
-    private ?string $année = null;
+    private ?string $annee = null;
 
     #[ORM\Column(length: 255, nullable: true)]
-    private ?string $résumé = null;
+    private ?string $resume = null;
 
     #[ORM\Column]
     #[Assert\NotBlank]
@@ -74,6 +74,7 @@ class Ouvrage
         $this->reservations = new ArrayCollection();
     }
 
+    // Getters/setters
     public function getId(): ?int
     {
         return $this->id;
@@ -103,14 +104,14 @@ class Ouvrage
         return $this;
     }
 
-    public function getéditeur(): ?string
+    public function getediteur(): ?string
     {
-        return $this->éditeur;
+        return $this->editeur;
     }
 
-    public function setéditeur(string $éditeur): static
+    public function setediteur(string $editeur): static
     {
-        $this->éditeur = $éditeur;
+        $this->editeur = $editeur;
 
         return $this;
     }
@@ -127,14 +128,14 @@ class Ouvrage
         return $this;
     }
 
-    public function getCatégories(): ?string
+    public function getCategories(): ?string
     {
-        return $this->catégories;
+        return $this->categories;
     }
 
-    public function setCatégories(string $catégories): static
+    public function setCategories(string $categories): static
     {
-        $this->catégories = $catégories;
+        $this->categories = $categories;
 
         return $this;
     }
@@ -163,26 +164,26 @@ class Ouvrage
         return $this;
     }
 
-    public function getAnnée(): ?string
+    public function getAnnee(): ?string
     {
-        return $this->année;
+        return $this->annee;
     }
 
-    public function setAnnée(string $année): static
+    public function setAnnee(string $annee): static
     {
-        $this->année = $année;
+        $this->annee = $annee;
 
         return $this;
     }
 
-    public function getRésumé(): ?string
+    public function getResume(): ?string
     {
-        return $this->résumé;
+        return $this->resume;
     }
 
-    public function setRésumé(?string $résumé): static
+    public function setResume(?string $resume): static
     {
-        $this->résumé = $résumé;
+        $this->resume = $resume;
 
         return $this;
     }
@@ -225,7 +226,6 @@ class Ouvrage
                 $exemplaire->setOuvrage(null);
             }
         }
-
         return $this;
     }
 
