@@ -21,7 +21,7 @@ final class OuvrageController extends AbstractController
         ]);
     }
 
-    #[Route('admin/newOuvrage', name: 'app_newOuvrage', methods: ['GET', 'POST'])]  //TODO : fixer le formulaire
+    #[Route('admin/newOuvrage', name: 'app_newOuvrage', methods: ['GET', 'POST'])]  //TODO : fix le formulaire
     public function newOuvrage(
         Request $request,
         EntityManagerInterface $manager

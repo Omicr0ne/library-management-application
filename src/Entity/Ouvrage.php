@@ -40,9 +40,9 @@ class Ouvrage
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $tags = null;
 
-    #[ORM\Column(length: 255)]
+    #[ORM\Column(type: 'json')]
     #[Assert\NotBlank]
-    private ?string $langues = null;
+    private ?array $langues = [];
 
     #[ORM\Column(length: 10)]
     #[Assert\NotBlank]
@@ -158,7 +158,7 @@ class Ouvrage
         return $this->langues;
     }
 
-    public function setLangues(string $langues): static
+    public function setLangues(?array $langues): static
     {
         $this->langues = $langues;
 

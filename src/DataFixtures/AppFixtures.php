@@ -74,7 +74,11 @@ class AppFixtures extends Fixture
 
     public function load(ObjectManager $manager): void
     {
-        for ($i = 0; $i < 40; $i++) {
+        $listLangues = [];
+        for ($i = 1; $i < $this->faker->numberBetween(2, 12); $i++) {
+            $listLangues[] = $this->faker->randomElement(self::langue);
+        }
+        for ($i = 0; $i < 10; $i++) {
             $cat = $this->faker->randomElement(self::categories);
             $aut = $this->faker->name;
             $ouvrage = new Ouvrage();
@@ -84,13 +88,12 @@ class AppFixtures extends Fixture
             $ouvrage->setAnnee($this->faker->year);
             $ouvrage->setTags('');
             $ouvrage->setIsbnIssn($this->faker->numerify('#############'));
-            $ouvrage->setLangues($this->faker->randomElement(self::langue));
+            $ouvrage->setLangues($listLangues);
             $ouvrage->setediteur($this->faker->randomElement(self::editeur));
             $ouvrage->setResume($this->faker->realText(200));
             $ouvrage->setCreatedAt(new DateTimeImmutable());
             $manager->persist($ouvrage);
             $manager->flush();
-
             $exemplaire = new Exemplaire();
             $exemplaire->setCote(mb_substr(mb_strtoupper($cat), 0, 3));
             $exemplaire->setDisponibilite(mt_rand(0, 1));

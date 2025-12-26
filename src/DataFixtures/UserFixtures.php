@@ -16,6 +16,7 @@ class UserFixtures extends Fixture
         ['ROLE_BIBLIO'],
         ['ROLE_USER'],    // Plus de chance d'avoir un utilisateur
         ['ROLE_USER'],
+        ['ROLE_USER'],
         ['ROLE_USER']
     ];
     private Generator $faker;
