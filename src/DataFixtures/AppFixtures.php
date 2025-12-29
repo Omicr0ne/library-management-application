@@ -78,7 +78,7 @@ class AppFixtures extends Fixture
         for ($i = 1; $i < $this->faker->numberBetween(2, 12); $i++) {
             $listLangues[] = $this->faker->randomElement(self::langue);
         }
-        for ($i = 0; $i < 10; $i++) {
+        for ($i = 0; $i < 25; $i++) {
             $cat = $this->faker->randomElement(self::categories);
             $aut = $this->faker->name;
             $ouvrage = new Ouvrage();

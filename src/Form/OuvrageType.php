@@ -9,6 +9,7 @@ use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Form\CallbackTransformer;
 use Symfony\Component\Validator\Constraints as Assert;
 
 class OuvrageType extends AbstractType
@@ -107,18 +108,18 @@ class OuvrageType extends AbstractType
             ->add('langues', TextType::class, [
                 'attr' => [
                     'class' => 'form-control',
-                    'minlength' => '2'
+                    'minlength' => '2',
+                    'maxlength' => '255'
                 ],
                 'label' => 'Langue : ',
                 'label_attr' => [
                     'class' => 'form-label mt-4'
                 ],
                 'constraints' => [
-                    new Assert\Length(['min' => 2, 'max' => 255]),
                     new Assert\NotBlank()
                 ]
             ])
-            ->add('annee', IntegerType::class, [
+            ->add('annee', TextType::class, [
                 'attr' => [
                     'class' => 'form-control',
                     'minlength' => '2',
@@ -148,6 +149,18 @@ class OuvrageType extends AbstractType
                 ],
                 'label' => 'Créer ouvrage'
             ])
+        ;
+        $builder
+            // Transformation de l'entrée de langue en tableau
+            ->get('langues')
+            ->addModelTransformer(new CallbackTransformer(
+                function ($itemAsArray): string {   // Transforme un tableau en string
+                    return implode(', ', $itemAsArray);
+                },
+                function ($itemAsString): array {   // Transforme un string en tableau
+                    return explode(', ', $itemAsString);
+                }
+            ))
         ;
     }
 

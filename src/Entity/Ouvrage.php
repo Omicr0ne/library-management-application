@@ -30,7 +30,7 @@ class Ouvrage
     private ?string $editeur = null;
 
     #[ORM\Column(length: 20)]
-    #[Assert\Range(min: 8, max: 13,)]    // Verifie que la valeur entière se trouve entre 8 et 13
+    #[Assert\Length(min: 8, max: 14)]    // Verifie que la valeur entière se trouve entre 8 et 13
     private ?string $IsbnIssn = null;
 
     #[ORM\Column(length: 255)]
@@ -41,7 +41,7 @@ class Ouvrage
     private ?string $tags = null;
 
     #[ORM\Column(type: 'json')]
-    #[Assert\NotBlank]
+    #[Assert\NotNull]
     private ?array $langues = [];
 
     #[ORM\Column(length: 10)]
@@ -153,7 +153,7 @@ class Ouvrage
         return $this;
     }
 
-    public function getLangues(): ?string
+    public function getLangues(): ?array
     {
         return $this->langues;
     }

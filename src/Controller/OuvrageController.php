@@ -13,6 +13,7 @@ use Symfony\Component\Routing\Attribute\Route;
 
 final class OuvrageController extends AbstractController
 {
+    // Affiche tous les ouvrages
     #[Route('/ouvrage', name: 'app_ouvrage', methods: ['GET'])]
     public function index(OuvrageRepository $repository, Request $request): Response
     {
@@ -21,7 +22,7 @@ final class OuvrageController extends AbstractController
         ]);
     }
 
-    #[Route('admin/newOuvrage', name: 'app_newOuvrage', methods: ['GET', 'POST'])]  //TODO : fix le formulaire
+    #[Route('admin/newOuvrage', name: 'app_newOuvrage', methods: ['GET', 'POST'])]
     public function newOuvrage(
         Request $request,
         EntityManagerInterface $manager
