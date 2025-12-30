@@ -43,4 +43,21 @@ final class ExemplaireController extends AbstractController
             'form' => $form->createView()
         ]);
     }
+
+    // Formulaire de modification des exemplaires
+    #[Route('admin/editExemplaire/{id}', name: 'app_editExemplaire', methods: ['GET', 'POST'])]
+    public function editExemplaire(Request $request, EntityManagerInterface $manager, Exemplaire $exemplaire): Response
+    {
+        $form = $this->createForm(NewExemplaireType::class, $exemplaire);
+
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+            $exemplaire = $form->getData();
+            $manager->persist($exemplaire);
+            $manager->flush();
+            return $this->redirectToRoute('app_exemplaire');
+        }
+
+        return $this->render('admin/editExemplaire.html.twig', ['form' => $form->createView()]);
+    }
 }
