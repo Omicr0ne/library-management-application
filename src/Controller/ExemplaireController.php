@@ -60,4 +60,16 @@ final class ExemplaireController extends AbstractController
 
         return $this->render('admin/editExemplaire.html.twig', ['form' => $form->createView()]);
     }
+
+    // Suppression d'un exemplaire
+    #[Route('admin/deleteExemplaire/{id}', name: 'app_deleteExemplaire', methods: ['POST'])]
+    public function delete(EntityManagerInterface $manager, Exemplaire $exemplaire): Response
+    {
+        if (!$exemplaire) {
+            return $this->redirectToRoute('app_ouvrage');
+        }
+        $manager->remove($exemplaire);
+        $manager->flush();
+        return $this->redirectToRoute('app_exemplaire');
+    }
 }

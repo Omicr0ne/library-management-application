@@ -22,9 +22,16 @@
 
     <div class="example-wrapper">
         {% for exemplaire in exemplaires %}
-            <p>
-                #{{ exemplaire.id }} | livre : {{ exemplaire.ouvrage.titre }} cote : {{exemplaire.cote}}, état : {{exemplaire.etat}}, {% if exemplaire.disponibilite == 1 %} disponible {% else %} indisponible {% endif %}
-            </p>
+            <div style="display:flex; align-items:center; gap:10px; margin-bottom:10px;">
+                <p>
+                    #{{ exemplaire.id }} | livre : {{ exemplaire.ouvrage.titre }} cote : {{exemplaire.cote}}, état : {{exemplaire.etat}}, {% if exemplaire.disponibilite == 1 %} disponible {% else %} indisponible {% endif %}
+                    <form action="{{ path('app_deleteExemplaire', { id: exemplaire.id }) }}" method="POST", style="display:inline;">
+                        <button class="nice-btn" onclick="return confirm('Supprimer cet ouvrage ?');">
+                            Supprimer
+                        </button>
+                    </form>
+                </p>
+            </div>
         {% endfor %}
     <a href="{{ path('app_newExemplaire') }}" class="nice-btn">Nouvel exemplaire</a>
     </div>
