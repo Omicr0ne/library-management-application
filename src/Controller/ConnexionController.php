@@ -5,11 +5,12 @@
 namespace App\Controller;
 
 use App\Entity\User;
-use App\Form\InscriptionType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
+use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Component\HttpFoundation\Request;
 
 final class ConnexionController extends AbstractController
 {
@@ -26,15 +27,5 @@ final class ConnexionController extends AbstractController
     public function deconnexion()
     {
         // déconnexion
-    }
-
-    #[Route('/inscription', 'app_inscription', methods: ['GET', 'POST'])]
-    public function inscription(): Response
-    {
-        $user = new User();
-        $form = $this->createForm(InscriptionType::class, $user);
-        return $this->render('connexion/inscription.html.twig', [
-            'form' => $form->createView()
-        ]);
     }
 }
