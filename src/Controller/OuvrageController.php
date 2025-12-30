@@ -24,10 +24,8 @@ final class OuvrageController extends AbstractController
 
     // Formulaire de création d'un nouvel ouvrage
     #[Route('admin/newOuvrage', name: 'app_newOuvrage', methods: ['GET', 'POST'])]
-    public function newOuvrage(
-        Request $request,
-        EntityManagerInterface $manager
-    ): Response {
+    public function newOuvrage(Request $request, EntityManagerInterface $manager): Response
+    {
         $ouvrage = new Ouvrage();
         $form = $this->createForm(OuvrageType::class, $ouvrage);
 
@@ -42,5 +40,22 @@ final class OuvrageController extends AbstractController
         return $this->render('admin/newOuvrage.html.twig', [
             'form' => $form->createView()
         ]);
+    }
+
+    // Formulaire de modification des ouvrages
+    #[Route('admin/editOuvrage/{id}', name: 'app_editOuvrage', methods: ['GET', 'POST'])]
+    public function editOuvrage(Request $request, EntityManagerInterface $manager, Ouvrage $ouvrage): Response
+    {
+        $form = $this->createForm(OuvrageType::class, $ouvrage);
+
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+            $ouvrage = $form->getData();
+            $manager->persist($ouvrage);
+            $manager->flush();
+            return $this->redirectToRoute('app_ouvrage');
+        }
+
+        return $this->render('admin/editOuvrage.html.twig', ['form' => $form->createView()]);
     }
 }
