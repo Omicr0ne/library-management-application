@@ -8,20 +8,35 @@
 	<style>
 		.example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
 		.example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
+		.nice-btn {
+			display: inline-block;
+			padding: 10px 18px;
+			background: #4a90e2;
+			color: white;
+			border-radius: 6px;
+			text-decoration: none;
+			transition: 0.2s;
+		}
+		.nice-btn:hover {
+			background: #357ab8;
+		}
 	</style>
 	<div classe="example-wrapper">
 		<h1>Catalogue des ouvrages</h1>
 		<hr>
 		{% for ouvrage in ouvrages %}
-			<p>
-				#{{ouvrage.id}}
-				|
-				<b>{{ouvrage.titre}}</b>
-				<br>
-				<i>{{ouvrage.auteurs}}</i>
-				-
-				{{ouvrage.annee}}
-			</p>
+			<div style="display:flex; align-items:center; gap:10px; margin-bottom:10px;">
+				<p>
+					#{{ouvrage.id}} | <b>{{ouvrage.titre}}</b><br>
+					<i>{{ouvrage.auteurs}}</i> - {{ouvrage.annee}}
+					<form action="{{ path('app_deleteOuvrage', { id: ouvrage.id }) }}" method="POST", style="display:inline;">
+						<button class="nice-btn" onclick="return confirm('Supprimer cet ouvrage ?');">
+							Supprimer
+						</button>
+					</form>
+				</p>
+			</div>
 		{% endfor %}
+		<a href="{{ path('app_newOuvrage') }}" class="nice-btn">Nouvel ouvrage</a>
 	</div>
 {% endblock %}
