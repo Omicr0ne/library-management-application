@@ -15,7 +15,8 @@ class Exemplaire
     #[ORM\Column]
     private ?int $id = null;
 
-    #[ORM\Column(length: 6, nullable: true)]
+    #[ORM\Column(length: 6)]
+    #[Assert\NotBlank]
     private ?string $cote = null;
 
     #[ORM\Column(length: 20)]
@@ -32,9 +33,10 @@ class Exemplaire
 
     #[ORM\ManyToOne(inversedBy: 'exemplaires')]
     private ?Ouvrage $ouvrage = null;
+    // Pour afficher le titre du livre : $exemplaire->getOuvrage()->getTitre();
 
     // Constructeur
-    public function __contruct()
+    public function __construct()
     {
         $this->createdAt = new DateTimeImmutable();
     }
