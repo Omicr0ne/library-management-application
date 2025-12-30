@@ -32,6 +32,7 @@ class Exemplaire
     private ?\DateTimeImmutable $createdAt = null;
 
     #[ORM\ManyToOne(inversedBy: 'exemplaires')]
+    #[ORM\JoinColumn(onDelete: 'CASCADE')]
     private ?Ouvrage $ouvrage = null;
     // Pour afficher le titre du livre : $exemplaire->getOuvrage()->getTitre();
 
