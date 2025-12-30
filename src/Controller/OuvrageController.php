@@ -15,13 +15,14 @@ final class OuvrageController extends AbstractController
 {
     // Affiche tous les ouvrages
     #[Route('/ouvrage', name: 'app_ouvrage', methods: ['GET'])]
-    public function index(OuvrageRepository $repository, Request $request): Response
+    public function index(OuvrageRepository $repository): Response
     {
         return $this->render('ouvrage/index.html.twig', [
             'ouvrages' => $repository->findAll()
         ]);
     }
 
+    // Formulaire de création d'un nouvel ouvrage
     #[Route('admin/newOuvrage', name: 'app_newOuvrage', methods: ['GET', 'POST'])]
     public function newOuvrage(
         Request $request,
@@ -35,6 +36,7 @@ final class OuvrageController extends AbstractController
             $ouvrage = $form->getData();
             $manager->persist($ouvrage);
             $manager->flush();
+            return $this->redirectToRoute('app_ouvrage');
         }
 
         return $this->render('admin/newOuvrage.html.twig', [
