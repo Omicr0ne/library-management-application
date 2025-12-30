@@ -58,4 +58,16 @@ final class OuvrageController extends AbstractController
 
         return $this->render('admin/editOuvrage.html.twig', ['form' => $form->createView()]);
     }
+
+    // Suppression d'un ouvrage
+    #[Route('admin/deleteOuvrage/{id}', name: 'app_deleteOuvrage', methods: ['POST'])]
+    public function delete(EntityManagerInterface $manager, Ouvrage $ouvrage): Response
+    {
+        if (!$ouvrage) {
+            return $this->redirectToRoute('app_ouvrage');
+        }
+        $manager->remove($ouvrage);
+        $manager->flush();
+        return $this->redirectToRoute('app_ouvrage');
+    }
 }
